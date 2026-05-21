@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofoliu Web | Alexia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css"> </head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased p-6">
+
+    <div class="max-w-5xl mx-auto">
+        <header class="bg-white rounded-xl shadow-md p-8 mb-8 flex flex-col md:flex-row items-center gap-6">
+            <img src="https://ui-avatars.com/api/?name=Alexia&background=random&size=128" alt="Profile" class="w-32 h-32 rounded-full shadow-lg">
+            <div class="text-center md:text-left">
+                <h1 class="text-4xl font-bold text-gray-900">Alexia</h1>
+                <h2 class="text-xl text-blue-600 font-semibold mt-1">Studentă CTI - Anul II | Pasionată de Embedded & Software</h2>
+                <p class="text-gray-600 mt-2">
+                    Studentă la ULBS, cu interes puternic pentru dezvoltarea low-level (C/C++, microcontrollere), dar și aplicații software sau jocuri (SNORKEL). 
+                    Acest portofoliu integrează automat proiectele mele de pe GitHub.
+                </p>
+            </div>
+        </header>
+
+        <main>
+            <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+                <h3 class="text-2xl font-bold text-gray-800">Proiecte GitHub</h3>
+                
+                <input type="text" id="searchInput" placeholder="Caută un proiect..." 
+                    class="w-full md:w-1/3 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <div id="loader" class="text-center py-10">
+                <div class="animate-spin inline-block w-8 h-8 border-[3px] border-current border-t-transparent text-blue-600 rounded-full" role="status" aria-label="loading"></div>
+                <p class="mt-2 text-gray-500">Se încarcă proiectele...</p>
+            </div>
+
+            <div id="errorBox" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative text-center" role="alert">
+                <span class="block sm:inline" id="errorMessage"></span>
+            </div>
+
+            <div id="reposContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
