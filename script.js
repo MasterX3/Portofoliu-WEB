@@ -1,21 +1,18 @@
-// Așteptăm ca tot HTML-ul să se încarce înainte de a rula scriptul
 document.addEventListener('DOMContentLoaded', () => {
     
-    // Selectăm elementele din pagină
     const reposContainer = document.getElementById('reposContainer');
     const searchInput = document.getElementById('searchInput');
     const loader = document.getElementById('loader');
     const errorBox = document.getElementById('errorBox');
     const errorMessage = document.getElementById('errorMessage');
+    const loadMoreBtn = document.getElementById('loadMoreBtn'); // Am selectat butonul nou
 
-    let allRepos = []; // Aici vom păstra toate proiectele originale
+    let allRepos = []; 
+    let filteredRepos = []; // Aici ținem proiectele după ce am căutat ceva
+    let currentDisplayCount = 6; // Cerința: afișăm doar 6 inițial
 
-    // Funcția principală care aduce datele
     async function fetchRepos() {
         try {
-            // Facem request către mini-serverul tău de pe Vercel
-            // Dacă testezi fără Vercel momentan, poți pune temporar linkul direct de la GitHub:
-            // 'https://api.github.com/users/USERNAME_UL_TAU/repos'
             const response = await fetch('/api/get-repos');
 
             if (!response.ok) {
@@ -24,14 +21,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const data = await response.json();
 
-            // Filtrăm fork-urile și sortăm după data actualizării (cele mai noi primele)
+            // Filtrăm fork-urile și sortăm după dată
             allRepos = data
                 .filter(repo => !repo.fork)
                 .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
 
-            // Ascundem loader-ul și afișăm proiectele
+            // Inițial, proiectele filtrate sunt aceleași cu toate proiectele
+            filteredRepos = [...allRepos];
+
             loader.classList.add('hidden');
-            renderRepos(allRepos);
+            renderRepos(); // Desenăm prima tură de carduri
 
         } catch (error) {
             loader.classList.add('hidden');
@@ -40,21 +39,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Funcția care desenează cardurile pe ecran (ACTUALIZATĂ CU CULORI NOI)
-    function renderRepos(repos) {
+    function renderRepos() {
         reposContainer.innerHTML = ''; 
 
-        if (repos.length === 0) {
-            reposContainer.innerHTML = '<p class="col-span-full text-center text-gray-500">Nu am găsit niciun proiect conform căutării.</p>';
+        if (filteredRepos.length === 0) {
+            reposContainer.innerHTML = '<p class="col-span-full text-center text-gray-500 text-lg">Nu am găsit niciun proiect conform căutării.</p>';
+            loadMoreBtn.classList.add('hidden');
             return;
         }
 
-        repos.forEach(repo => {
+        // TĂIEM array-ul: luăm de la indexul 0 până la limita curentă (6, 12, etc.)
+        const reposToShow = filteredRepos.slice(0, currentDisplayCount);
+
+        reposToShow.forEach(repo => {
             const description = repo.description || 'Fără descriere disponibilă.';
             const language = repo.language || 'Nespecificat';
 
             const card = document.createElement('div');
-            // MODIFICAT: Hover effect în nuanțe de Teal
             card.className = 'bg-white rounded-xl shadow border border-gray-100 p-6 flex flex-col hover:shadow-xl hover:border-teal-100 transition-all duration-300 transform hover:-translate-y-1';
             
             card.innerHTML = `
@@ -77,22 +78,34 @@ document.addEventListener('DOMContentLoaded', () => {
             
             reposContainer.appendChild(card);
         });
+
+        // AFIȘĂM sau ASCUNDEM butonul de Load More în funcție de câte proiecte au mai rămas
+        if (filteredRepos.length > currentDisplayCount) {
+            loadMoreBtn.classList.remove('hidden');
+        } else {
+            loadMoreBtn.classList.add('hidden');
+        }
     }
 
-
-    // Funcționalitatea de Căutare (Live Search)
+    // Funcționalitatea de Căutare (Resetăm contorul la 6 de fiecare dată când căutăm ceva nou)
     searchInput.addEventListener('input', (e) => {
         const searchTerm = e.target.value.toLowerCase();
         
-        const filteredRepos = allRepos.filter(repo => 
+        filteredRepos = allRepos.filter(repo => 
             repo.name.toLowerCase().includes(searchTerm) || 
             (repo.description && repo.description.toLowerCase().includes(searchTerm)) ||
             (repo.language && repo.language.toLowerCase().includes(searchTerm))
         );
 
-        renderRepos(filteredRepos);
+        currentDisplayCount = 6; // Resetăm la 6 pe o căutare nouă
+        renderRepos();
     });
 
-    // Pornim aplicația
+    // EVENIMENT pentru butonul de Load More
+    loadMoreBtn.addEventListener('click', () => {
+        currentDisplayCount += 6; // Mai adăugăm 6 la limită
+        renderRepos(); // Redesenăm
+    });
+
     fetchRepos();
 });
