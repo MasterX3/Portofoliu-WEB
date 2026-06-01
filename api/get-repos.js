@@ -7,7 +7,7 @@ export default async function handler(req, res) {
   try {
     const response = await fetch(`https://api.github.com/users/${username}/repos?per_page=100`, {
       headers: {
-        'Authorization': `Bearer ${token}`,
+        //'Authorization': `Bearer ${token}`,
         'Accept': 'application/vnd.github.v3+json'
       }
     });
