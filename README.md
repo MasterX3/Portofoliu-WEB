@@ -2,7 +2,7 @@
 
 Acest proiect reprezintă un portofoliu web personalizat, dezvoltat ca proiect de semestru. Aplicația este un Single Page Application (SPA) care se integrează dinamic cu API-ul oficial GitHub pentru a prelua, filtra și afișa repository-urile personale sub formă de carduri interactive.
 
-🔗 **[Vezi proiectul Live aici]([https://portofoliu-web.vercel.app/])**
+🔗 **[Vezi proiectul Live aici](https://portofoliu-web.vercel.app/)**
 
 ---
 
