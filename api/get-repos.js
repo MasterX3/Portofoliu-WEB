@@ -21,7 +21,7 @@ export default async function handler(req, res) {
     res.status(200).json(data);
 
   } catch (error) {
-    // Tratarea erorilor pentru cerința de UX/UI
+    // Tratarea erorilor
     res.status(500).json({ 
       error: 'Nu am putut prelua proiectele', 
       details: error.message 

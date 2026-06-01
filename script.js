@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let allRepos = []; 
     let filteredRepos = []; // Aici ținem proiectele după ce am căutat ceva
-    let currentDisplayCount = 6; // Cerința: afișăm doar 6 inițial
+    let currentDisplayCount = 6;
 
     async function fetchRepos() {
         try {
@@ -21,16 +21,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const data = await response.json();
 
-            // Filtrăm fork-urile și sortăm după dată
+
             allRepos = data
                 .filter(repo => !repo.fork)
                 .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
 
-            // Inițial, proiectele filtrate sunt aceleași cu toate proiectele
+
             filteredRepos = [...allRepos];
 
             loader.classList.add('hidden');
-            renderRepos(); // Desenăm prima tură de carduri
+            renderRepos();
 
         } catch (error) {
             loader.classList.add('hidden');
@@ -48,7 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // TĂIEM array-ul: luăm de la indexul 0 până la limita curentă (6, 12, etc.)
         const reposToShow = filteredRepos.slice(0, currentDisplayCount);
 
         reposToShow.forEach(repo => {
@@ -87,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Funcționalitatea de Căutare (Resetăm contorul la 6 de fiecare dată când căutăm ceva nou)
+    // Funcționalitatea de Căutare
     searchInput.addEventListener('input', (e) => {
         const searchTerm = e.target.value.toLowerCase();
         
@@ -103,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // EVENIMENT pentru butonul de Load More
     loadMoreBtn.addEventListener('click', () => {
-        currentDisplayCount += 6; // Mai adăugăm 6 la limită
+        currentDisplayCount += 6;
         renderRepos(); // Redesenăm
     });
 
