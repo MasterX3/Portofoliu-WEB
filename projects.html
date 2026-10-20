@@ -9,22 +9,22 @@
 </head>
 <body class="bg-gradient-to-br from-teal-100 via-white to-sky-100 min-h-screen text-gray-800 font-sans antialiased flex flex-col">
 
-    <!-- Navigația Fixă și Responsivă -->
-    <nav class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50">
-        <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center flex-wrap">
-            <a href="index.html" class="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-sky-600">Alexia.</a>
+    <!-- Navigația Fixă și Responsivă (cu Overlay pe mobil) -->
+    <nav class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50 relative">
+        <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-sky-600">Radu Alexia-Iulia</a>
             
-            <!-- Butonul Hamburger (acum are ID-ul corect) -->
+            <!-- Butonul Hamburger -->
             <button id="mobileMenuBtn" class="md:hidden text-gray-600 hover:text-teal-600 focus:outline-none">
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </button>
 
-            <!-- Lista de linkuri (acum are ID-ul corect și clasele pentru mobil) -->
-            <div id="navMenu" class="hidden w-full md:w-auto md:flex flex-col md:flex-row gap-6 font-medium text-gray-600 mt-4 md:mt-0 items-center">
-                <a href="index.html" class="hover:text-teal-600 transition-colors py-2 md:py-0">Acasă</a>
-                <a href="about.html" class="hover:text-teal-600 transition-colors py-2 md:py-0">Despre</a>
-                <a href="projects.html" class="hover:text-teal-600 transition-colors py-2 md:py-0">Proiecte</a>
-                <a href="contact.html" class="hover:text-teal-600 transition-colors py-2 md:py-0">Contact</a>
+            <!-- Meniul: Poziționat absolut pe mobil (overlay), normal pe desktop -->
+            <div id="navMenu" class="hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-md shadow-xl border-t border-gray-100 py-4 md:static md:w-auto md:bg-transparent md:shadow-none md:border-none md:py-0 md:flex flex-col md:flex-row gap-6 font-medium text-gray-600 items-center transition-all">
+                <a href="index.html" class="hover:text-teal-600 transition-colors w-full text-center md:w-auto py-2 md:py-0">Acasă</a>
+                <a href="about.html" class="hover:text-teal-600 transition-colors w-full text-center md:w-auto py-2 md:py-0">Despre</a>
+                <a href="projects.html" class="hover:text-teal-600 transition-colors w-full text-center md:w-auto py-2 md:py-0">Proiecte</a>
+                <a href="contact.html" class="hover:text-teal-600 transition-colors w-full text-center md:w-auto py-2 md:py-0">Contact</a>
             </div>
         </div>
     </nav>
