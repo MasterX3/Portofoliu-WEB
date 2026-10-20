@@ -1,0 +1,17 @@
+/* Glisare fină pentru toată pagina */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Starea inițială a elementelor (ascunse și ușor lăsate în jos) */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* Starea finală (când intră pe ecran) */
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
